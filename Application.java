@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Application
 {
@@ -31,12 +32,10 @@ public class Application
         // BFS
         System.out.println("Breadth First Search");
         breadthFirstSearch(adjacencyList);
-        System.out.println("");
  
         // DFS
         System.out.println("Depth First Search");
         depthFirstSearch(adjacencyList);   
-        System.out.println("");
     }
 
     public static void breadthFirstSearch(List<List<Integer>> adjacencyList) {
@@ -55,12 +54,37 @@ public class Application
                 explored[v] = true;
             }
         }
+        System.out.println("");
     }
 
     public static void depthFirstSearch(List<List<Integer>> adjacencyList) {
         boolean[] explored = new boolean[adjacencyList.size()];
         explored[0] = true;
+        
         depthFirstSearchRecurse(0, adjacencyList, explored);   
+        System.out.println("");
+
+        depthFirstSearchStack(adjacencyList);
+        System.out.println("");
+    }
+
+    public static void depthFirstSearchStack(List<List<Integer>> adjacencyList) {
+        boolean[] explored = new boolean[adjacencyList.size()];
+        explored[0] = true;
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(0);
+
+        while(!stack.isEmpty()) {
+            Integer v = stack.pop();
+            System.out.print(v + " ");
+
+            for(Integer vertex : adjacencyList.get(v)) {
+                if(!explored[vertex]) {
+                    stack.push(vertex);
+                }
+                explored[vertex] = true;
+            }
+        }
     }
 
     public static void depthFirstSearchRecurse(Integer current, List<List<Integer>> adjacencyList, boolean[] explored) {
@@ -89,7 +113,7 @@ public class Application
 
     public static void printAdjacencyList(List<List<Integer>> adjacencyList) {
         int index = 0;
-
+        System.out.println("Adjacency List");
         for(List<Integer> adjacency : adjacencyList) {
             System.out.print(index + " -> ");
             for(Integer vertex : adjacency) {
