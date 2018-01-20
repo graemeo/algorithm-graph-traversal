@@ -39,12 +39,11 @@ public class Application
         boolean[] explored = new boolean[adjacencyList.size()];
         Queue<Integer> queue = new LinkedList<Integer>();
         queue.add(0);
+        explored[0] = true;
 
         while(!queue.isEmpty()) {
             steps++;
             Integer vertex = queue.remove();
-            explored[vertex] = true;
-            System.out.println("AT node: " + vertex);
 
             if (vertex == number) {
                 System.out.println("FOUND! Number of steps: " + steps);
@@ -55,13 +54,9 @@ public class Application
                 if (!explored[v]) {
                     queue.add(v);
                 }
+                explored[v] = true;
             }
         }
-        // Loop through queue when not empty
-        // Is found matching node?
-        // Add children to queue (if not explored)
-
-        
     }
     
     public static  List<List<Integer>> getAdjacencyList() {
