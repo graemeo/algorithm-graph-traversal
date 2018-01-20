@@ -29,33 +29,48 @@ public class Application
         printAdjacencyList(adjacencyList);
 
         // BFS
-        breadthFirstSearch(adjacencyList, 3);
-         
-        
+        System.out.println("Breadth First Search");
+        breadthFirstSearch(adjacencyList);
+        System.out.println("");
+ 
+        // DFS
+        System.out.println("Depth First Search");
+        depthFirstSearch(adjacencyList);   
+        System.out.println("");
     }
 
-    public static void breadthFirstSearch(List<List<Integer>> adjacencyList, int number) {
-        int steps = 0;
+    public static void breadthFirstSearch(List<List<Integer>> adjacencyList) {
         boolean[] explored = new boolean[adjacencyList.size()];
         Queue<Integer> queue = new LinkedList<Integer>();
         queue.add(0);
         explored[0] = true;
 
         while(!queue.isEmpty()) {
-            steps++;
             Integer vertex = queue.remove();
-
-            if (vertex == number) {
-                System.out.println("FOUND! Number of steps: " + steps);
-                break;
-            }
-
+            System.out.print(vertex + " ");
             for(Integer v : adjacencyList.get(vertex)) {
                 if (!explored[v]) {
                     queue.add(v);
                 }
                 explored[v] = true;
             }
+        }
+    }
+
+    public static void depthFirstSearch(List<List<Integer>> adjacencyList) {
+        boolean[] explored = new boolean[adjacencyList.size()];
+        explored[0] = true;
+        depthFirstSearchRecurse(0, adjacencyList, explored);   
+    }
+
+    public static void depthFirstSearchRecurse(Integer current, List<List<Integer>> adjacencyList, boolean[] explored) {
+        System.out.print(current + " ");
+        explored[current] = true;
+
+        for(Integer vertex : adjacencyList.get(current)) {
+            if (!explored[vertex]) {
+                depthFirstSearchRecurse(vertex, adjacencyList,  explored);
+            } 
         }
     }
     
